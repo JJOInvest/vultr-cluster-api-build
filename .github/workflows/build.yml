@@ -42,7 +42,7 @@ jobs:
 
       #make docker-build docker-push CONTROLLER_IMAGE=${{env.REGISTRY}}/${{steps.imageNameToLowerCase.outputs.image_name}} TAG=${{env.tag}}
         run: |
-          sed -i "s/image: .*/image: ${{env.REGISTRY}}/${{steps.imageNameToLowerCase.outputs.image_name}}:${{env.tag}}/g" ./config/default/manager_image_patch.yaml
+          sed -i "s|image: .*|image: ${{env.REGISTRY}}/${{steps.imageNameToLowerCase.outputs.image_name}}:${{env.tag}}|g" ./config/default/manager_image_patch.yaml
           make build-installer CONTROLLER_IMAGE=${{env.REGISTRY}}/${{steps.imageNameToLowerCase.outputs.image_name}}:${{env.tag}}
 
       #The makefile build-installer target generates an 'install.yaml' file in the dist directory.
