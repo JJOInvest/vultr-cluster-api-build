@@ -40,3 +40,8 @@ stringData:
   apiKey: yourapikey
 type: Opaque
 ```
+
+Use sed:
+```bash
+sed -i "s/apiKey: yourapikey/apiKey: ${VULTR_API_KEY}/g install.yaml
+```
