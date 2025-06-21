@@ -5,7 +5,7 @@ on:
 
 jobs:
   publish-docker-image:
-    runs-on: [ubuntu-latest]
+    runs-on: [self-hosted, linux]
 
     steps:
       - name: Checkout kubernetes-sigs/image-builder
