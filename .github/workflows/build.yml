@@ -19,9 +19,8 @@ jobs:
       id-token: write
 
     steps:
-      - id: imageNameToLowerCase
-        run: INPUT=${{ env.IMAGE_NAME }} echo "::set-output name=imageName::${INPUT,,}"
-
+      - name: Set image name to lowercase
+        run: echo "IMAGE_NAME=${IMAGE_NAME}@L}" >>${GITHUB_ENV}
 
       #Checkout vultr/cluster-api-provider-vultr
       - name: Checkout vultr/cluster-api-provider-vultr
