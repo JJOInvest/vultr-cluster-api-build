@@ -18,13 +18,11 @@ jobs:
       id-token: write
 
     steps:
-      - name: Set image name to github repository name in lowercase
+      - id: imageNameToLowerCase
+        name: Set image name to github repository name in lowercase
         run: |
-          echo "IMAGE_NAME=${GITHUB_REPOSITORY,,}" >>${GITHUB_ENV}
-          echo "IMAGE_NAME=${GITHUB_REPOSITORY,,}"
-          echo "${GITHUB_REPOSITORY}"
-          echo "${{ github.repository }}"
-          echo "${${{ github.repository }}@L}"
+          echo "image_name=${GITHUB_REPOSITORY,,}" >>$GITHUB_OUTPUT
+          echo "image_name=${GITHUB_REPOSITORY,,}"
 
       #Checkout vultr/cluster-api-provider-vultr
       - name: Checkout vultr/cluster-api-provider-vultr
@@ -42,6 +40,6 @@ jobs:
       #Build docker image
       - name: Build docker image
         run: |
-          make docker-build docker-push CONTROLLER_IMAGE=${{env.REGISTRY}}/${{steps.imageNameToLowerCase.outputs.imageName}} TAG=${{env.tag}}
+          make docker-build docker-push CONTROLLER_IMAGE=${{env.REGISTRY}}/${{steps.imageNameToLowerCase.outputs.image_name}} TAG=${{env.tag}}
         
           
