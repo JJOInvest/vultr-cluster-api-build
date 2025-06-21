@@ -48,8 +48,19 @@ jobs:
       #This file contains all the resources built with Kustomize, which are necessary to install this project without its dependencies.
       #We publish this install file to the GitHub Actions artifact store.
       #This file can be used to install the vultr capi provider to kubernetes cluster.
-      - name: Archive install.yaml
-        uses: actions/upload-artifact@v4
+      - name: Upload install.yaml to release
+        uses: svenstaro/upload-release-action@v2
         with:
-          name: install.yaml
-          path: dist/install.yaml
+          repo_token: ${{ secrets.GITHUB_TOKEN }}
+          file: dist/install.yaml
+          asset_name: install.yaml
+          tag: ${{ env.tag }}
+          overwrite: true
+          body: "cluster-api-provider-vultr:${{env.tag}} - This file can be used to install the vultr capi provider to kubernetes cluster"
+
+      # - name: Archive install.yaml
+      #   uses: actions/upload-artifact@v4
+      #   with:
+      #     name: install.yaml
+      #     path: dist/install.yaml
+          #retention-days: 0
