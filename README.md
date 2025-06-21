@@ -1,6 +1,8 @@
 # vultr-cluster-api-build
 GitHub Action to build [vultr-cluster-api-provider](https://github.com/vultr/cluster-api-provider-vultr)
 
+Builds and publishes the [Docker image](#docker-image) containing the cluster API provider, and generates and uploads the [install.yaml](#yaml-for-kubernetes-plugin) file to the release.
+
 ## Build instructions
 Manually run [Publish installer action](https://github.com/JJOInvest/vultr-cluster-api-build/actions/workflows/build.yml). You can set the tag in .github/workflows/build.yml
 ```yaml
