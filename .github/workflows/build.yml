@@ -1,4 +1,4 @@
-name: Publish installer
+name: Publish installer release
 
 on:
   workflow_dispatch
@@ -11,11 +11,11 @@ jobs:
   publish-docker-image:
     runs-on: [ubuntu-latest]
 
-    permissions:
-      contents: read
-      packages: write
-      attestations: write
-      id-token: write
+    # permissions:
+    #   contents: read
+    #   packages: write
+    #   attestations: write
+    #   id-token: write
 
     steps:
       - id: imageNameToLowerCase
@@ -39,10 +39,11 @@ jobs:
 
       #Build docker image
       - name: Build docker image and installer
+
+      #make docker-build docker-push CONTROLLER_IMAGE=${{env.REGISTRY}}/${{steps.imageNameToLowerCase.outputs.image_name}} TAG=${{env.tag}}
         run: |
-          make docker-build docker-push CONTROLLER_IMAGE=${{env.REGISTRY}}/${{steps.imageNameToLowerCase.outputs.image_name}} TAG=${{env.tag}}
+          sed -i "s/image: .*/image: ${env.REGISTRY}/${{steps.imageNameToLowerCase.outputs.image_name}}:${{env.tag}}/g" ./config/default/manager_image_patch.yaml
           make build-installer CONTROLLER_IMAGE=${{env.REGISTRY}}/${{steps.imageNameToLowerCase.outputs.image_name}}:${{env.tag}}
-          ls -la
 
       #The makefile build-installer target generates an 'install.yaml' file in the dist directory.
       #This file contains all the resources built with Kustomize, which are necessary to install this project without its dependencies.
