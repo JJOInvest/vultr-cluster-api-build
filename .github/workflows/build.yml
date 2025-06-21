@@ -41,5 +41,13 @@ jobs:
       - name: Build docker image
         run: |
           make docker-build docker-push CONTROLLER_IMAGE=${{env.REGISTRY}}/${{steps.imageNameToLowerCase.outputs.image_name}} TAG=${{env.tag}}
-        
-          
+
+      #The makefile target mentioned above generates an 'install.yaml' file in the dist directory.
+      #This file contains all the resources built with Kustomize, which are necessary to install this project without its dependencies.
+      #We publish this install file to the GitHub Actions artifact store.
+      #This file can be used to install the vultr capi provider to kubernetes cluster.
+      - name: Archive install.yaml
+        uses: actions/upload-artifact@v4
+        with:
+          name: install.yaml
+          path: dist/install.yaml
