@@ -1,0 +1,19 @@
+name: Publish installer release
+
+on:
+  workflow_dispatch
+
+jobs:
+  publish-docker-image:
+    runs-on: [ubuntu-latest]
+
+    steps:
+      - name: Checkout kubernetes-sigs/image-builder
+        uses: actions/checkout@v4
+        with:
+          repository: 'kubernetes-sigs/image-builder'
+
+      - name: Build ubuntu-2204-snapshot
+        run: |
+          cd image-builder/images/capi
+          make build-vultr-ubuntu-2204

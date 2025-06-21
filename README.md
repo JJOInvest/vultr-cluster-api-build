@@ -1,10 +1,12 @@
-# vultr-cluster-api-build
+# Vultr cluster-api provider
 GitHub Action to build [vultr-cluster-api-provider](https://github.com/vultr/cluster-api-provider-vultr)
 
 Builds and publishes the [Docker image](#docker-image) containing the cluster API provider, and generates and uploads the [install.yaml](#yaml-for-kubernetes-plugin) file to the release.
 
+To build vultr kubernetes cluster api image snapshot [use this instruction](#vultr-image-snapshot-build)
+
 ## Build instructions
-Manually run [Publish installer action](https://github.com/JJOInvest/vultr-cluster-api-build/actions/workflows/build.yml). You can set the tag in .github/workflows/build.yml
+Manually run [Publish installer release action](https://github.com/JJOInvest/vultr-cluster-api-build/actions/workflows/build.yml). You can set the tag in .github/workflows/build.yml
 ```yaml
 env:
   REGISTRY: ghcr.io
@@ -45,3 +47,5 @@ Use sed:
 ```bash
 sed -i "s/apiKey: yourapikey/apiKey: ${VULTR_API_KEY}/g install.yaml
 ```
+
+# Vultr image snapshot build
