@@ -40,7 +40,9 @@ jobs:
       #Build docker image
       - name: Build docker image
         run: |
-          make docker-build docker-push CONTROLLER_IMAGE=${{env.REGISTRY}}/${{steps.imageNameToLowerCase.outputs.image_name}} TAG=${{env.tag}}
+          ls -la
+          
+        #make docker-build docker-push CONTROLLER_IMAGE=${{env.REGISTRY}}/${{steps.imageNameToLowerCase.outputs.image_name}} TAG=${{env.tag}}
 
       #The makefile target mentioned above generates an 'install.yaml' file in the dist directory.
       #This file contains all the resources built with Kustomize, which are necessary to install this project without its dependencies.
