@@ -4,7 +4,7 @@ on:
   workflow_dispatch
 
 jobs:
-  publish-docker-image:
+  prepare-vultr-image:
     runs-on: [self-hosted, linux, tf-infra-control]
 
     steps:
