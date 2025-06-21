@@ -19,6 +19,10 @@ jobs:
       id-token: write
 
     steps:
+      - id: imageNameToLowerCase
+        run: INPUT=${{ env.IMAGE_NAME }} echo "::set-output name=imageName::${INPUT,,}"
+
+
       #Checkout vultr/cluster-api-provider-vultr
       - name: Checkout vultr/cluster-api-provider-vultr
         uses: actions/checkout@v4
@@ -35,6 +39,6 @@ jobs:
       #Build docker image
       - name: Build docker image
         run: |
-          make docker-build docker-push CONTROLLER_IMAGE=${{env.REGISTRY}}/${{env.IMAGE_NAME}} TAG=${{env.tag}}
+          make docker-build docker-push CONTROLLER_IMAGE=${{env.REGISTRY}}/${{steps.imageNameToLowerCase.outputs.imageName}} TAG=${{env.tag}}
         
           
