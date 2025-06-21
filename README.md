@@ -19,6 +19,7 @@ docker pull ghcr.io/jjoinvest/vultr-cluster-api-build:0.1.0
 
 ### yaml for kubernetes plugin
 Build generates an 'install.yaml' file in the release at https://github.com/JJOInvest/vultr-cluster-api-build/releases/download/${tag}/install.yaml
+
 [For example here for 0.1.0](https://github.com/JJOInvest/vultr-cluster-api-build/releases/download/0.1.0/install.yaml)
 
 This file contains all the resources built with Kustomize, which are necessary to install this project without its dependencies.
