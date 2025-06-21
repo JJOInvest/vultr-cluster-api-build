@@ -1,4 +1,4 @@
-name: Plan cdktf
+name: Publish installer
 
 on:
   workflow_dispatch
@@ -8,7 +8,7 @@ env:
 
 jobs:
   plan:
-    runs-on: [self-hosted, linux]
+    runs-on: [ubuntu-latest]
     steps:
       #Checkout vultr/cluster-api-provider-vultr
       - uses: actions/checkout@v4
@@ -16,7 +16,7 @@ jobs:
           repository: 'vultr/cluster-api-provider-vultr'
 
       #TODO: Add docker login
-      
+
       #Build docker image
       - name: Build docker image
         run: |
