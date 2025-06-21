@@ -15,5 +15,5 @@ jobs:
 
       - name: Build ubuntu-2204-snapshot
         run: |
-          cd image-builder/images/capi
+          cd images/capi
           make build-vultr-ubuntu-2204
