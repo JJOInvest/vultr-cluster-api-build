@@ -4,22 +4,37 @@ on:
   workflow_dispatch
 
 env:
+  REGISTRY: ghcr.io
+  IMAGE_NAME: ${{ github.repository }}
   tag: 0.1.0
 
 jobs:
-  plan:
+  publish-docker-image:
     runs-on: [ubuntu-latest]
+
+    permissions:
+      contents: read
+      packages: write
+      attestations: write
+      id-token: write
+
     steps:
       #Checkout vultr/cluster-api-provider-vultr
-      - uses: actions/checkout@v4
+      - name: Checkout vultr/cluster-api-provider-vultr
+        uses: actions/checkout@v4
         with:
           repository: 'vultr/cluster-api-provider-vultr'
 
-      #TODO: Add docker login
+      - name: Log in to the Container registry
+        uses: docker/login-action@v3
+        with:
+          registry: ${{ env.REGISTRY }}
+          username: ${{ github.actor }}
+          password: ${{ secrets.GITHUB_TOKEN }}
 
       #Build docker image
       - name: Build docker image
         run: |
-          make install
+          make docker-build docker-push CONTROLLER_IMAGE=${{env.REGISTRY}}/${{env.IMAGE_NAME}} TAG=${{env.tag}}
         
           
