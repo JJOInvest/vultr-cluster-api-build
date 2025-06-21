@@ -1,4 +1,4 @@
-name: Publish installer release
+name: Generate ubuntu-2204-snapshot
 
 on:
   workflow_dispatch
