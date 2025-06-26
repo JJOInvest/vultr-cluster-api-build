@@ -49,13 +49,4 @@ sed -i "s/apiKey: yourapikey/apiKey: ${VULTR_API_KEY}/g install.yaml
 ```
 
 # Vultr image snapshot build
-Manually run [Generate ubuntu-2204-snapshot action](https://github.com/JJOInvest/vultr-cluster-api-build/actions/workflows/ubuntu_2204_snapshot.yml). It will run jobon self hosted runner that has permissions to communicate with Vultr API. It will build Vultr ubuntu 22.04 image for [capi image builder](https://github.com/kubernetes-sigs/image-builder.git).
-
-Image snapshot can be found at [vultr control plane](https://my.vultr.com/snapshots/) named as "Cluster API Kubernetes v${capi-version} on Ubuntu 22.04".
-
-You can get it's id programmatically via Vultr API
-```bash
-curl "https://api.vultr.com/v2/snapshots" \
-  -X GET \
-  -H "Authorization: Bearer ${VULTR_API_KEY}"
-```
+Use [image builder](https://github.com/JJOInvest/capi-image-builder) to prepare Vultr image for cluster api
